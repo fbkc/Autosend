@@ -54,8 +54,16 @@ public class Login : IHttpHandler
             BLL.cmUserBLL bll = new BLL.cmUserBLL();
             string strWhere = string.Format("username='{0}'", _username);// and [Password]='{1}', _password
             DataTable dt = bll.GetUser(strWhere).Tables[0];
-            if (dt != null)
-            {//用户和密码正确
+            if (dt.Rows.Count < 0 || dt.Rows.Count > 1)
+            {
+                result = "{\"msg\": \"0\", \"msgbox\": \"登录错误！\"}";
+            }
+            if (dt.Rows.Count == 0)
+            {
+                result = "{\"msg\": \"0\", \"msgbox\": \"用户名不存在！\"}";
+            }
+            if (dt.Rows.Count == 1)
+            {
                 int _userid = 0;
                 int.TryParse(dt.Rows[0]["Id"].ToString(), out _userid);
                 model.Id = _userid;
@@ -65,7 +73,7 @@ public class Login : IHttpHandler
             }
             else
             {
-                result = "{\"msg\": \"0\", \"msgbox\": \"用户名或密码错误！\"}"; ;
+                result = "{\"msg\": \"0\", \"msgbox\": \"用户名或密码错误！\"}"; 
             }
         }
         return result;
