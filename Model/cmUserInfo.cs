@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Model
 {
-    public class cmUser
+    public class cmUserInfo
     {
         public int Id { get; set; }
         public string username { get; set; }

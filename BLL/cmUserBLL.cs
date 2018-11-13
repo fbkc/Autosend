@@ -9,9 +9,9 @@ namespace BLL
 {
     public class cmUserBLL
     {
-        public DataSet GetUser(string sqlFormat)
+        public DataSet GetUser(string name)
         {
-            DataSet ds = SqlHelper.ExecuteDataSet("select * from userInfo "+ sqlFormat);
+            DataSet ds = SqlHelper.ExecuteDataSet("select * from userInfo where username=" + name);
             return ds;
         }
     }
