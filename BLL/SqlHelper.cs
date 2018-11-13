@@ -11,8 +11,8 @@ namespace Data
     #region lhc
     public class SqlHelper
     {
-        //private static string connStr = ConfigurationManager.ConnectionStrings["data"].ConnectionString;User ID=fangyuan001;Password=fangyuan001
-        private static string connStr = "Data Source=39.105.196.3;Initial Catalog=Gather;";
+        //private static string connStr = ConfigurationManager.ConnectionStrings["data"].ConnectionString;User ID=fangyuan001;Password=fangyuan001 @"Data Source=localhost;database = 你的数据库名;Integrated security = true"
+        private static string connStr = "Data Source=39.105.196.3;database = AutoSend;Integrated security = true;User ID=lhc;Password=123456";
         /// <summary>
         /// 返回受影响的数据行数
         /// </summary>

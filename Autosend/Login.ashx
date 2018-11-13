@@ -18,7 +18,7 @@ public class Login : IHttpHandler, IRequiresSessionState
             string _strAction = context.Request.Params["action"];
             if (string.IsNullOrEmpty(_strAction))
             {
-                _strContent.Append("{\"msg\": \"0\", \"msgbox\": \"禁止访问！\",\"rows\": []}");
+                _strContent.Append("{\"code\": \"0\", \"msg\": \"禁止访问！\",\"rows\": []}");
             }
             else
             {
@@ -40,8 +40,8 @@ public class Login : IHttpHandler, IRequiresSessionState
     private string UserLogin(HttpContext context)
     {
         string result = "";
-        string _username = context.Request.Params["username"];
-        string _password = context.Request.Params["password"];
+        string _username = context.Request["username"];
+        string _password = context.Request["password"];
         if (string.IsNullOrEmpty(_username) || string.IsNullOrEmpty(_password))
             return  "{\"code\": \"0\", \"msg\": \"用户名或密码为空！\"}";
         Model.cmUserInfo model = new Model.cmUserInfo();
@@ -50,11 +50,11 @@ public class Login : IHttpHandler, IRequiresSessionState
             model = (Model.cmUserInfo)context.Session["UserModel"];
             if (model.username != _username)
             {
-                result = "{\"msg\": \"0\", \"msgbox\": \"此浏览器已经有其他用户登录！\"}";
+                result = "{\"code\": \"0\", \"msg\": \"此浏览器已经有其他用户登录！\"}";
             }
             else
             {
-                result = "{\"msg\": \"1\", \"msgbox\": \"登录成功！\"}";
+                result = "{\"code\": \"1\", \"msg\": \"登录成功！\"}";
             }
         }
         else
@@ -63,11 +63,11 @@ public class Login : IHttpHandler, IRequiresSessionState
             DataTable dt = bll.GetUser(_username.Trim()).Tables[0];
             if (dt.Rows.Count < 0 || dt.Rows.Count > 1)
             {
-                result = "{\"msg\": \"0\", \"msgbox\": \"登录错误！\"}";
+                result = "{\"code\": \"0\", \"msg\": \"登录错误！\"}";
             }
             else if (dt.Rows.Count == 0)
             {
-                result = "{\"msg\": \"0\", \"msgbox\": \"用户名不存在！\"}";
+                result = "{\"code\": \"0\", \"msg\": \"用户名不存在！\"}";
             }
             else if (dt.Rows.Count == 1)
             {
@@ -77,11 +77,11 @@ public class Login : IHttpHandler, IRequiresSessionState
                 model.username = dt.Rows[0]["username"].ToString();
                 model.password = dt.Rows[0]["password"].ToString();
                 if (model.password != _password)
-                    result = "{\"msg\": \"0\", \"msgbox\": \"密码错误！\"}";
+                    result = "{\"code\": \"0\", \"msg\": \"密码错误！\"}";
                 else
                 {
                     context.Session["UserModel"] = model;
-                    result = "{\"msg\": \"1\", \"msgbox\": \"登录成功！\"}";
+                    result = "{\"code\": \"1\", \"msg\": \"登录成功！\"}";
                 }
             }
         }
