@@ -31,6 +31,9 @@ public class Login : IHttpHandler, IRequiresSessionState
                     case "login": _strContent.Append(UserLogin(context)); break;//会员登录
                     case "test": _strContent.Append("hhhh"); break;
                     case "getuser": _strContent.Append(GetUserInfo(context)); break;//获取所有会员
+                    case "adduser": _strContent.Append(addUser(context)); break;//添加会员
+                    case "putuser": _strContent.Append(updateUser(context)); break;//修改会员信息
+                    case "deluser": _strContent.Append(delUser(context)); break;//删除会员
                     default: break;
                 }
             }
@@ -121,10 +124,44 @@ public class Login : IHttpHandler, IRequiresSessionState
             userInfo.registerIP = (string)row["registerIP"];
             uList.Add(userInfo);
         }
+        //将list对象集合转换为Json
         JavaScriptSerializer jss = new JavaScriptSerializer();
-        string ss=jss.Serialize(uList);
-        return ss;
+        return jss.Serialize(uList);
     }
+    /// <summary>
+    /// 添加会员
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public string addUser(HttpContext context)
+    {
+              
+    }
+    /// <summary>
+    /// 更新会员信息
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public string updateUser(HttpContext context)
+    {
+        string id = context.Request["Id"];
+        cmUserBLL cmBLL = new cmUserBLL();
+        cmBLL.DelUser(string.Format("where Id='{0}'", id));
+        return "{\"code\": \"1\", \"msg\": \"删除成功！\"}";
+    }
+    /// <summary>
+    /// 删除会员
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    public string delUser(HttpContext context)
+    {
+        string id = context.Request["Id"];
+        cmUserBLL cmBLL = new cmUserBLL();
+        cmBLL.DelUser(string.Format("where Id='{0}'", id));
+        return "{\"code\": \"1\", \"msg\": \"删除成功！\"}";
+    }
+
     public bool IsReusable
     {
         get

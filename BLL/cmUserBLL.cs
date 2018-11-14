@@ -19,5 +19,14 @@ namespace BLL
             DataTable ds = SqlHelper.ExecuteDataSet("select * from userInfo " + sqlstr).Tables[0];
             return ds;
         }
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="sqlstr"></param>
+        /// <returns></returns>
+        public void DelUser(string sqlstr)
+        {
+            int a= SqlHelper.ExecuteNoQuery("delete * from userInfo " + sqlstr);
+        }
     }
 }
