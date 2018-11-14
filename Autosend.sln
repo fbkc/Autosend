@@ -3,32 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Autosend", "Autosend\", "{D4E13C42-7B90-4752-BB76-5FF0E5AA1166}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{9a2cf81e-5f79-41b3-b0ac-474cf2c3dd63}|BLL.dll;{b5243098-3354-4b21-9c87-01c307e80706}|Model.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_15621"
-		Debug.AspNetCompiler.PhysicalPath = "Autosend\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15621\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_15621"
-		Release.AspNetCompiler.PhysicalPath = "Autosend\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_15621\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "15621"
-		SlnRelativePath = "Autosend\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{B5243098-3354-4B21-9C87-01C307E80706}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{9A2CF81E-5F79-41B3-B0AC-474CF2C3DD63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoSend", "D:\site\AutoSend\AutoSend\AutoSend.csproj", "{28169356-8CA2-4A88-94EC-7378363465A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4E13C42-7B90-4752-BB76-5FF0E5AA1166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4E13C42-7B90-4752-BB76-5FF0E5AA1166}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4E13C42-7B90-4752-BB76-5FF0E5AA1166}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4E13C42-7B90-4752-BB76-5FF0E5AA1166}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{B5243098-3354-4B21-9C87-01C307E80706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5243098-3354-4B21-9C87-01C307E80706}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5243098-3354-4B21-9C87-01C307E80706}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,6 +23,10 @@ Global
 		{9A2CF81E-5F79-41B3-B0AC-474CF2C3DD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A2CF81E-5F79-41B3-B0AC-474CF2C3DD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A2CF81E-5F79-41B3-B0AC-474CF2C3DD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28169356-8CA2-4A88-94EC-7378363465A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28169356-8CA2-4A88-94EC-7378363465A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28169356-8CA2-4A88-94EC-7378363465A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28169356-8CA2-4A88-94EC-7378363465A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
