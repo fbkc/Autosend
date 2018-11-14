@@ -5,6 +5,10 @@ using System.Web;
 using System.Data;
 using System.Text;
 using System.Web.SessionState;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+using Model;
+using BLL;
 
 public class Login : IHttpHandler, IRequiresSessionState
 {
@@ -24,8 +28,9 @@ public class Login : IHttpHandler, IRequiresSessionState
             {
                 switch (_strAction.Trim().ToLower())
                 {
-                    case "login": _strContent.Append(UserLogin(context)); break;
-                    case "gettext": _strContent.Append("hhhh"); break;
+                    case "login": _strContent.Append(UserLogin(context)); break;//会员登录
+                    case "test": _strContent.Append("hhhh"); break;
+                    case "getuser": _strContent.Append(GetUserInfo(context)); break;//获取所有会员
                     default: break;
                 }
             }
@@ -42,12 +47,14 @@ public class Login : IHttpHandler, IRequiresSessionState
         string result = "";
         string _username = context.Request["username"];
         string _password = context.Request["password"];
-        if (string.IsNullOrEmpty(_username) || string.IsNullOrEmpty(_password))
-            return  "{\"code\": \"0\", \"msg\": \"用户名或密码为空！\"}";
-        Model.cmUserInfo model = new Model.cmUserInfo();
+        if (string.IsNullOrEmpty(_username))
+            return "{\"code\": \"0\", \"msg\": \"用户名不能为空！\"}";
+        if (string.IsNullOrEmpty(_password))
+            return "{\"code\": \"0\", \"msg\": \"密码不能为空！\"}";
+        cmUserInfo model = new cmUserInfo();
         if (context.Session["UserModel"] != null)
         {   //当前浏览器已经有用户登录 判断是不是当前输入的用户
-            model = (Model.cmUserInfo)context.Session["UserModel"];
+            model = (cmUserInfo)context.Session["UserModel"];
             if (model.username != _username)
             {
                 result = "{\"code\": \"0\", \"msg\": \"此浏览器已经有其他用户登录！\"}";
@@ -59,8 +66,8 @@ public class Login : IHttpHandler, IRequiresSessionState
         }
         else
         {
-            BLL.cmUserBLL bll = new BLL.cmUserBLL();
-            DataTable dt = bll.GetUser(_username.Trim()).Tables[0];
+            cmUserBLL bll = new cmUserBLL();
+            DataTable dt = bll.GetUser(string.Format("where username='{0}'", _username.Trim()));
             if (dt.Rows.Count < 0 || dt.Rows.Count > 1)
             {
                 result = "{\"code\": \"0\", \"msg\": \"登录错误！\"}";
@@ -73,7 +80,7 @@ public class Login : IHttpHandler, IRequiresSessionState
             {
                 int _userid = 0;
                 int.TryParse(dt.Rows[0]["Id"].ToString(), out _userid);
-                model.Id = _userid;
+                model.Id = _userid.ToString();
                 model.username = dt.Rows[0]["username"].ToString();
                 model.password = dt.Rows[0]["password"].ToString();
                 if (model.password != _password)
@@ -87,7 +94,37 @@ public class Login : IHttpHandler, IRequiresSessionState
         }
         return result;
     }
-
+    /// <summary>
+    /// 获取所有会员
+    /// </summary>
+    /// <returns></returns>
+    public string GetUserInfo(HttpContext context)
+    {
+        cmUserBLL bll = new cmUserBLL();
+        List<cmUserInfo> uList = new List<cmUserInfo>();
+        DataTable dt = bll.GetUser("");
+        if (dt.Rows.Count < 1)
+            return "";
+        foreach (DataRow row in dt.Rows)
+        {
+            cmUserInfo userInfo = new cmUserInfo();
+            userInfo.Id = (string)row["Id"].ToString();
+            userInfo.username = (string)row["username"];
+            userInfo.password = (string)row["password"];
+            userInfo.accountGrade = (int)row["accountGrade"];
+            userInfo.canPubCount = (int)row["canPubCount"];
+            userInfo.realmNameInfo = (string)row["realmNameInfo"];
+            userInfo.expirationTime = (string)row["expirationTime"];
+            userInfo.endPubCount = (int)row["endPubCount"];
+            userInfo.endTodayPubCount = (int)row["endTodayPubCount"];
+            userInfo.registerTime = (string)row["registerTime"];
+            userInfo.registerIP = (string)row["registerIP"];
+            uList.Add(userInfo);
+        }
+        JavaScriptSerializer jss = new JavaScriptSerializer();
+        string ss=jss.Serialize(uList);
+        return ss;
+    }
     public bool IsReusable
     {
         get

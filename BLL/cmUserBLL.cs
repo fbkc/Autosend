@@ -9,9 +9,14 @@ namespace BLL
 {
     public class cmUserBLL
     {
-        public DataSet GetUser(string name)
+        /// <summary>
+        /// 查找用户
+        /// </summary>
+        /// <param name="sqlstr"></param>
+        /// <returns></returns>
+        public DataTable GetUser(string sqlstr)
         {
-            DataSet ds = SqlHelper.ExecuteDataSet("select * from userInfo where username=" + name);
+            DataTable ds = SqlHelper.ExecuteDataSet("select * from userInfo " + sqlstr).Tables[0];
             return ds;
         }
     }
